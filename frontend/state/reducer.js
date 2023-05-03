@@ -16,35 +16,18 @@ function wheel(state = initialWheelState, action) {
 
 //Quiz
 const initialQuizState = {
-  quiz_id: "", 
+  quiz_id: "",
   question: "",
-  answers: [
-    {
-      answer_id: "",
-      text: ""
-    },
-    {
-      answer_id: "",
-      text: ""
-    }
-  ]
+  answers: [],
 };
-function quiz(state = initialQuizState, action) {
+
+ function quiz(state = initialQuizState, action) {
   switch (action.type) {
     case SET_QUIZ_INTO_STATE:
       return {
-        quiz_id: state.quiz_id,
-        question: action.payload.question_text,
-        answers: [
-          {
-            answer_id: "",
-            text: action.payload.true_answer_text,
-          },
-          {
-            answer_id: "",
-            text: action.payload.false_answer_text,
-          },
-        ],
+        quiz_id: action.payload.quiz_id,
+        question: action.payload.question,
+        answers: action.payload.answers,
       };
     default:
       return state;

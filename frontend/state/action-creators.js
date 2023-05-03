@@ -18,29 +18,47 @@ export function selectAnswer(index) {
 
 export function setMessage() { }
 
-export function setQuiz(question_text, true_answer_text, false_answer_text) {
+// export function setQuiz(question_text, true_answer_text, false_answer_text) {
+//   return {
+//     type: SET_QUIZ_INTO_STATE,
+//     payload: {
+//       question_text,
+//       true_answer_text,
+//       false_answer_text,
+//     },
+//   };
+// }
+export function setQuiz(quiz) {
   return {
     type: SET_QUIZ_INTO_STATE,
-    payload: {
-      question_text,
-      true_answer_text,
-      false_answer_text,
-    },
+    payload: quiz
   };
 }
-
 export function inputChange() { }
 
 export function resetForm() { }
 
 // ❗ Async action creators
-export function fetchQuiz() {
-  return function (dispatch) {
-    // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
-    // On successful GET:
-    // - Dispatch an action to send the obtained quiz to its state
-  }
-}
+// export function fetchQuiz() {
+//   return function (dispatch) {
+//     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
+//     // On successful GET:
+//     // - Dispatch an action to send the obtained quiz to its state
+//   }
+// }
+export const fetchQuiz = () => {
+  return dispatch => {
+    fetch('http://localhost:9000/api/quiz/next')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        dispatch(setQuiz(data));
+      })
+      .catch(error => console.error(error));
+  };
+};
+
+
 export function postAnswer() {
   return function (dispatch) {
     // On successful POST:
