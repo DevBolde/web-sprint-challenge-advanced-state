@@ -1,5 +1,5 @@
 # Sprint Challenge: Advanced State Management
-<!-- 
+
 In this challenge, you will write the logic for [THIS APP](https://advanced-state-wheel.herokuapp.com/).
 
 ## Tools
@@ -16,17 +16,17 @@ In this challenge, you will write the logic for [THIS APP](https://advanced-stat
 - Fork, clone, and `npm install`. You won't need to add any extra libraries.
 - Launch the project in a development server executing `npm run dev`.
 - Visit your app by navigating Chrome to `http://localhost:3000`.
-<!-- - Run tests locally executing `npm test`. The local test file is `codegrade_mvp.test.js`. -->
+- Run tests locally executing `npm test`. The local test file is `codegrade_mvp.test.js`.
 
-<!-- ## Studying the prototype
+## Studying the prototype
 
 Open the live prototype linked above and study its functionality using the following **Chrome Dev Tools**:
 
 - **Elements tab** shows the exact DOM rendered as we interact with the UI. Look at texts but also at class names.
 - **Network tab** shows the HTTP messages. "Payload" shows the request payload from the client (if any) and "Preview" shows the response payload from the server.
-- **Redux Extension tab** shows application state, as well as the actions that fire on user interaction. These actions commonly carry payloads but not always. -->
+- **Redux Extension tab** shows application state, as well as the actions that fire on user interaction. These actions commonly carry payloads but not always.
 
-### Important notes from "Product" -->
+### Important notes from "Product"
 
 - The routes **don't lose their state** by navigating the links back and forth:
   - Current position of the "B" in the wheel is maintained.
@@ -65,7 +65,7 @@ In order to complete this project, you must fix the following modules:
 - [reducer.js](frontend/state/reducer.js)
 - [action-creators.js](frontend/state/action-creators.js)
 - [Message.js](frontend/components/Message.js)
-- [Wheel.js](frontend/components/Wheel.js)
+<!-- - [Wheel.js](frontend/components/Wheel.js) -->
 - [Quiz.js](frontend/components/Quiz.js)
 - [Form.js](frontend/components/Form.js)
 
