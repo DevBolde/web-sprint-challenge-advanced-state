@@ -18,25 +18,25 @@ export default function Wheel(props) {
     <div id="wrapper">
       <div id="wheel">
         <div className={`cog ${wheelIndex === 0 ? 'active' : ''}`} style={{ "--i": 0 }}>
-  {wheelIndex === 0 && <span className="inner-cog">B</span>}
-</div>
-<div className={`cog ${wheelIndex === 1 ? 'active' : ''}`} style={{ "--i": 1 }}>
-  {wheelIndex === 1 && <span className="inner-cog">B</span>}
-</div>
+          {wheelIndex === 0 && <span className="inner-cog">B</span>}
+        </div>
+        <div className={`cog ${wheelIndex === 1 ? 'active' : ''}`} style={{ "--i": 1 }}>
+          {wheelIndex === 1 && <span className="inner-cog">B</span>}
+        </div>
 
-<div className={`cog ${wheelIndex === 2 ? 'active' : ''}`} style={{ "--i": 2 }}>
-  {wheelIndex === 2 && <span className="inner-cog">B</span>}
-</div>
+        <div className={`cog ${wheelIndex === 2 ? 'active' : ''}`} style={{ "--i": 2 }}>
+          {wheelIndex === 2 && <span className="inner-cog">B</span>}
+        </div>
 
-<div className={`cog ${wheelIndex === 3 ? 'active' : ''}`} style={{ "--i": 3 }}>
-  {wheelIndex === 3 && <span className="inner-cog">B</span>}
-</div>
-<div className={`cog ${wheelIndex === 4 ? 'active' : ''}`} style={{ "--i": 4 }}>
-  {wheelIndex === 4 && <span className="inner-cog">B</span>}
-</div>
-<div className={`cog ${wheelIndex === 5 ? 'active' : ''}`} style={{ "--i": 5 }}>
-  {wheelIndex === 5 && <span className="inner-cog">B</span>}
-</div>
+        <div className={`cog ${wheelIndex === 3 ? 'active' : ''}`} style={{ "--i": 3 }}>
+          {wheelIndex === 3 && <span className="inner-cog">B</span>}
+        </div>
+        <div className={`cog ${wheelIndex === 4 ? 'active' : ''}`} style={{ "--i": 4 }}>
+          {wheelIndex === 4 && <span className="inner-cog">B</span>}
+        </div>
+        <div className={`cog ${wheelIndex === 5 ? 'active' : ''}`} style={{ "--i": 5 }}>
+          {wheelIndex === 5 && <span className="inner-cog">B</span>}
+        </div>
       </div>
       <div id="keypad">
         <button id="counterClockwiseBtn" onClick={handleClickCounterClockwise}>Counter clockwise</button>
