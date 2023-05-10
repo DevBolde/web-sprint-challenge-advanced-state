@@ -86,10 +86,12 @@ export function form(state = initialFormState, action) {
         [action.payload.id]: action.payload.value
       };
     case types.RESET_FORM:
-      return initialFormState; // Reset the form state to initial values
+      return initialFormState;
     default:
       return state;
   }
 }
+
+
 
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })

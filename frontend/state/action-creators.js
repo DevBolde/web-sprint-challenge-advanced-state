@@ -87,28 +87,19 @@ export function postAnswer(quizId, answerId) {
   };
 }
 
-  export function postQuiz(newQuestion, newTrueAnswer, newFalseAnswer) {
+  export function postQuiz(question, trueAnswer, falseAnswer) {
   return function (dispatch) {
-    // Create the payload for the POST request
     const payload = {
-      question_text: newQuestion,
-      true_answer_text: newTrueAnswer,
-      false_answer_text: newFalseAnswer
+      question_text: question,
+      true_answer_text: trueAnswer,
+      false_answer_text: falseAnswer
     };
-
-    // Make the POST request to submit the new quiz
-    axios
-      .post("http://localhost:9000/api/quiz/new", payload)
+    axios.post("http://localhost:9000/api/quiz/new", payload)
       .then((res) => {
-        // On successful POST:
-        // - Dispatch the submit form success action
-        console.log(res)
-        dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`));
         dispatch(resetForm());
+        dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`));
       })
       .catch((err) => {
-        // On error:
-        // - Dispatch the submit form failure action with the error message
         dispatch(setMessage(err.response.data.message));
       });
   };
