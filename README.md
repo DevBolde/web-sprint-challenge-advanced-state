@@ -65,7 +65,7 @@ In order to complete this project, you must fix the following modules:
 - [reducer.js](frontend/state/reducer.js)
 - [action-creators.js](frontend/state/action-creators.js)
 - [Message.js](frontend/components/Message.js)
-<!-- - [Wheel.js](frontend/components/Wheel.js) -->
+- [Wheel.js](frontend/components/Wheel.js)
 - [Quiz.js](frontend/components/Quiz.js)
 - [Form.js](frontend/components/Form.js)
 

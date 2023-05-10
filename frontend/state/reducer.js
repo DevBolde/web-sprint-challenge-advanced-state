@@ -1,13 +1,14 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 import { combineReducers } from 'redux';
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE,SET_QUIZ_INTO_STATE,SET_SELECTED_ANSWER } from './action-types';
+import * as types from './action-types';
+
 //Wheel
 const initialWheelState = 0;
 function wheel(state = initialWheelState, action) {
   switch (action.type) {
-    case MOVE_CLOCKWISE:
+    case types.MOVE_CLOCKWISE:
       return (state + 1) % 6;
-    case MOVE_COUNTERCLOCKWISE:
+    case types.MOVE_COUNTERCLOCKWISE:
       return (state + 5) % 6;
     default:
       return state;
@@ -15,48 +16,80 @@ function wheel(state = initialWheelState, action) {
 }
 
 //Quiz
-const initialQuizState = {
+export const initialQuizState = {
+  loading: false,
   quiz_id: "",
   question: "",
-  answers: [],
+  answers: [{
+    answer_id: "",
+    text: ""
+  },
+  {
+    answer_id: "",
+    text: ""
+  }]
 };
-
  function quiz(state = initialQuizState, action) {
   switch (action.type) {
-    case SET_QUIZ_INTO_STATE:
+    case types.SET_QUIZ_LOADING:
       return {
-        quiz_id: action.payload.quiz_id,
-        question: action.payload.question,
-        answers: action.payload.answers,
+        ...state,
+        loading: action.payload
       };
+    case types.SET_QUIZ_INTO_STATE:
+  return {
+    ...state,
+    loading: false,
+    quiz_id: action.payload.quiz_id,
+    question: action.payload.question,
+    answers: action.payload.answers
+  };
     default:
       return state;
   }
 }
 
-
-const initialSelectedAnswerState = -1;
+//Selected Answer
+const initialSelectedAnswerState = null;
 function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch(action.type){
-    case SET_SELECTED_ANSWER:
+    case types.SET_SELECTED_ANSWER:
       return action.payload;
     default:
       return state;
   }
 }
 
-const initialMessageState = ''
+//Info Message
+const initialMessageState = '';
 function infoMessage(state = initialMessageState, action) {
-  return state
+  switch (action.type) {
+    case types.SET_INFO_MESSAGE:
+      return action.payload;
+    default:
+      return state;
+  }
 }
 
-const initialFormState = {
+//Form
+export const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
-  newFalseAnswer: '',
-}
-function form(state = initialFormState, action) {
-  return state
+  newFalseAnswer: ''
+};
+
+export function form(state = initialFormState, action) {
+  switch (action.type) {
+    case types.INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.id]: action.payload.value
+      };
+    case types.RESET_FORM:
+      return initialFormState; // Reset the form state to initial values
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })

@@ -1,52 +1,71 @@
 import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAnswer, fetchQuiz } from "../state/action-creators";
+import { connect } from 'react-redux';
+import * as actionCreators from "../state/action-creators";
 
-export default function Quiz(props) {
-  const dispatch = useDispatch();
-  const selectedAnswer = useSelector(state => state.selectedAnswer);
-  const quizGrabber = useSelector(state => state.quiz)
+ function Quiz(props) {
+  const {quiz, selectedAnswer, selectAnswer, fetchQuiz, postAnswer} = props
 
   useEffect(() => {
-    dispatch(fetchQuiz());
-  }, [dispatch]);
+    if (!quiz.quiz_id) {
+      fetchQuiz();
+    }
+  }, [fetchQuiz]);
+  
 
+  // Refactoring Functions
+  const answerID = (i) =>{
+    return quiz.answers[i].answerId
+  }
+  const answerText = (i) => {
+    return quiz.answers[i].text
+  }
+ 
+
+  // Methods
   const handleAnswerClick = (index) => {
-    dispatch(selectAnswer(index));
+    selectAnswer(index);
+  };
+
+  const handleSubmit = () => {
+    if (selectedAnswer !== null) {
+      const answerId = quiz.answers[selectedAnswer].answer_id;
+      postAnswer(quiz.quiz_id, answerId);
+    }
   };
   
-  const handleSubmit = (e) => {
-    dispatch(fetchQuiz())
-  };
-
   return (
-    <div id="wrapper" onSubmit={handleSubmit}>
+    <div id="wrapper" >
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        true ? (
+        quiz.loading ? (
+          'Loading next quiz...'
+        ):(
           <>
-            <h2>{quizGrabber.question}</h2>
-
+            <h2 key={quiz.quiz_id}>{quiz.question}</h2>
+          
             <div id="quizAnswers">
-              <div className={`answer ${selectedAnswer === 0 ? 'selected' : ''}`} onClick={() => handleAnswerClick(0)}>
-              {quizGrabber.answers && quizGrabber.answers[0] && quizGrabber.answers[0].text}
-                <button>
-                  {selectedAnswer === 0 ? "SELECTED" : "Select"}
-                </button>
+              <div key={answerID(0)} className={`answer ${selectedAnswer === 0 ? 'selected' : ''}`} onClick={() => handleAnswerClick(0)}>
+                 {answerText(0)}                
+                <button>{selectedAnswer === 0 ? "SELECTED" : "Select"}</button>
               </div>
 
-              <div className={`answer ${selectedAnswer === 1 ? 'selected' : ''}`} onClick={() => handleAnswerClick(1)}>
-              {quizGrabber.answers && quizGrabber.answers[1] && quizGrabber.answers[1].text}
-                <button>
-                  {selectedAnswer === 1 ? "SELECTED" : "Select"}
-                </button>
+              <div key={answerID(1)} className={`answer ${selectedAnswer === 1 ? 'selected' : ''}`} onClick={() => handleAnswerClick(1)}>
+                  {answerText(1)}               
+                <button>{selectedAnswer === 1 ? "SELECTED" : "Select"}</button>
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button id="submitAnswerBtn" onClick={() =>handleSubmit(selectedAnswer)} disabled={selectedAnswer === null}>Submit answer</button>
           </>
-        ) : 'Loading next quiz...'
-      }
+        ) }
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  // Map the required state properties to props
+  return {
+    quiz: state.quiz,
+    selectedAnswer: state.selectedAnswer
+  };
+};
+export default connect(mapStateToProps, actionCreators)(Quiz);

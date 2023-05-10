@@ -1,16 +1,25 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import * as actionCreators from '../state/action-creators'
+import React from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../state/action-creators';
 
 export function Form(props) {
+  const { postQuiz, form, inputChange } = props;
 
-  const onChange = evt => {
+  const onChange = (evt) => {
+    const { id, value } = evt.target;
+    const trimmedValue = value.trim(); // Trim leading and trailing whitespace
+    inputChange(id, trimmedValue);
+  };
 
-  }
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    postQuiz(form.newQuestion, form.newTrueAnswer, form.newFalseAnswer);
+  };
 
-  const onSubmit = evt => {
-
-  }
+  const isFormValid =
+    form.newQuestion.length >= 1 &&
+    form.newTrueAnswer.length >= 1 &&
+    form.newFalseAnswer.length >= 1;
 
   return (
     <form id="form" onSubmit={onSubmit}>
@@ -18,9 +27,11 @@ export function Form(props) {
       <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
       <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
       <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <button id="submitNewQuizBtn" disabled={!isFormValid}>
+        Submit new quiz
+      </button>
     </form>
-  )
+  );
 }
 
-export default connect(st => st, actionCreators)(Form)
+export default connect((state) => state, actionCreators)(Form);
